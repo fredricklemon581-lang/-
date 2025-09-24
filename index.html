@@ -1106,7 +1106,7 @@
                         <div class="contact-icon">📧</div>
                         <div>
                             <strong>招聘邮箱</strong><br>
-                            zyq202596@163.com
+                            xingyunkeji@163.com
                         </div>
                     </div>
                     <div class="contact-item">
@@ -1179,8 +1179,8 @@
                         <select id="graduationYear" name="graduationYear">
                             <option value="">请选择毕业年份</option>
                             <option value="2025">2025年</option>
-                            <option value="2024">2024年</option>
-                            <option value="2023">2023年</option>
+                            <option value="2026">2026年</option>
+                            <option value="2027">2027年</option>
                         </select>
                     </div>
                     
@@ -1779,39 +1779,73 @@ ${new Date().toLocaleString('zh-CN')}
             };
         }
 
-        // 发送邮件 (使用EmailJS服务)
+        // 发送邮件 (使用Formspree服务 - 免费且简单)
         async function sendEmail(emailData) {
-            // 这里使用EmailJS服务来发送邮件
-            // 你需要到 https://www.emailjs.com/ 注册并获取服务ID
-            
-            // 由于需要API密钥，这里提供一个模拟的成功响应
-            // 实际使用时需要配置EmailJS
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    // 模拟发送成功
-                    const success = Math.random() > 0.1; // 90%成功率
-                    if (success) {
-                        resolve({ status: 'success' });
-                    } else {
-                        reject(new Error('网络错误'));
-                    }
-                }, 2000);
-            });
-            
-            /*
-            // 实际的EmailJS代码示例：
             try {
-                const result = await emailjs.send(
-                    'your_service_id',
-                    'your_template_id',
-                    emailData,
-                    'your_public_key'
-                );
+                // 使用Formspree发送邮件到你的邮箱
+                const response = await fetch('https://formspree.io/f/xvgpkbpw', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: emailData.from_email,
+                        name: emailData.from_name,
+                        phone: emailData.phone,
+                        position: emailData.position,
+                        subject: emailData.subject,
+                        message: emailData.message,
+                        _replyto: emailData.from_email,
+                        _subject: emailData.subject
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
                 return result;
+                
             } catch (error) {
-                throw error;
+                console.error('Formspree发送失败，尝试备用方案...', error);
+                
+                // 备用方案：使用EmailJS (需要配置)
+                try {
+                    if (typeof emailjs !== 'undefined') {
+                        const result = await emailjs.send(
+                            'service_nebula_tech', // 服务ID
+                            'template_recruitment', // 模板ID
+                            {
+                                to_email: 'zyq202596@163.com',
+                                from_name: emailData.from_name,
+                                from_email: emailData.from_email,
+                                phone: emailData.phone,
+                                position: emailData.position,
+                                message: emailData.message,
+                                subject: emailData.subject
+                            },
+                            'nebula_tech_2024' // 公钥
+                        );
+                        return result;
+                    }
+                } catch (emailjsError) {
+                    console.error('EmailJS也失败了:', emailjsError);
+                }
+                
+                // 最终备用方案：使用mailto链接
+                const mailtoLink = createMailtoLink(emailData);
+                window.open(mailtoLink, '_blank');
+                
+                return { status: 'mailto', message: '已为您打开邮件客户端' };
             }
-            */
+        }
+
+        // 创建mailto链接作为备用方案
+        function createMailtoLink(emailData) {
+            const subject = encodeURIComponent(emailData.subject);
+            const body = encodeURIComponent(emailData.message + '\n\n--- 此邮件由星云科技招聘网站自动生成 ---');
+            return `mailto:zyq202596@163.com?subject=${subject}&body=${body}`;
         }
 
         // 3D卡片效果
@@ -1985,16 +2019,13 @@ ${new Date().toLocaleString('zh-CN')}
         checkOnlineStatus();
     </script>
 
-    <!-- EmailJS SDK (如果需要使用真实的邮件发送功能) -->
-    <!--
+    <!-- Formspree和EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function(){
-            emailjs.init("YOUR_PUBLIC_KEY");
-        })();
+        // 初始化EmailJS (备用方案)
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init("nebula_tech_2024");
+        }
     </script>
-    -->
 </body>
 </html>
-
-
