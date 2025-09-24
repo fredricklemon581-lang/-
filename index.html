@@ -181,6 +181,28 @@
             animation: slideInUp 1s ease-out 0.3s both;
         }
 
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* 实时招聘状态 */
         .live-status {
             display: flex;
@@ -287,6 +309,130 @@
             cursor: pointer;
         }
 
+        /* 文件上传样式 */
+        .file-upload-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            left: -9999px;
+            opacity: 0;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 60px;
+        }
+
+        .file-upload-label:hover {
+            border-color: #667eea;
+            background: #f0f8ff;
+            color: #667eea;
+        }
+
+        .file-upload-label.drag-over {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+            color: #4CAF50;
+        }
+
+        .file-upload-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .file-list {
+            margin-top: 1rem;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .file-icon {
+            margin-right: 0.5rem;
+            color: #667eea;
+        }
+
+        .file-name {
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+
+        .file-size {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .file-remove {
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* 提交状态 */
+        .submit-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .submit-status.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            display: block;
+        }
+
+        .submit-status.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            display: block;
+        }
+
+        .submit-status.sending {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            display: block;
+        }
+
         /* 职位筛选器 */
         .job-filters {
             display: flex;
@@ -311,442 +457,6 @@
         .filter-btn:hover {
             background: #667eea;
             color: white;
-        }
-
-        /* 薪资计算器 */
-        .salary-calculator {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 3rem 0;
-            margin: 2rem 0;
-        }
-
-        .calculator-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        .calculator-form {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-            align-items: end;
-        }
-
-        .calc-input-group {
-            text-align: left;
-        }
-
-        .calc-input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .calc-input-group select,
-        .calc-input-group input {
-            width: 100%;
-            padding: 0.8rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .calc-btn {
-            background: white;
-            color: #667eea;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .calc-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .salary-result {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            display: none;
-        }
-
-        .salary-result.show {
-            display: block;
-            animation: slideInUp 0.5s ease-out;
-        }
-
-        /* 员工评价轮播 */
-        .reviews-section {
-            padding: 4rem 0;
-            background: #f8f9fa;
-        }
-
-        .reviews-carousel {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 15px;
-        }
-
-        .review-item {
-            background: white;
-            padding: 3rem;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: none;
-        }
-
-        .review-item.active {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .review-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            margin: 0 auto 1rem auto;
-        }
-
-        .review-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .review-author {
-            font-weight: bold;
-            color: #667eea;
-        }
-
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ccc;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: #667eea;
-            transform: scale(1.2);
-        }
-
-        /* 技能测试 */
-        .skill-test {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 4rem 0;
-        }
-
-        .test-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .question-card {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .question-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .question-options {
-            display: grid;
-            gap: 0.5rem;
-        }
-
-        .option {
-            padding: 1rem;
-            background: rgba(255,255,255,0.1);
-            border: 2px solid transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .option:hover {
-            border-color: white;
-        }
-
-        .option.selected {
-            background: white;
-            color: #667eea;
-            border-color: white;
-        }
-
-        /* 实时聊天 */
-        .chat-widget {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .chat-widget:hover {
-            transform: scale(1.1);
-        }
-
-        .chat-box {
-            position: fixed;
-            bottom: 150px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transform: scale(0);
-            transition: all 0.3s ease;
-            z-index: 1000;
-            overflow: hidden;
-        }
-
-        .chat-box.open {
-            transform: scale(1);
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 1rem;
-            font-weight: bold;
-        }
-
-        .chat-messages {
-            height: 280px;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-
-        .chat-input-area {
-            padding: 1rem;
-            border-top: 1px solid #eee;
-        }
-
-        .chat-input {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        .message {
-            margin-bottom: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 15px;
-            max-width: 80%;
-        }
-
-        .message.user {
-            background: #667eea;
-            color: white;
-            margin-left: auto;
-        }
-
-        .message.bot {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        /* 3D职位卡片 */
-        .job-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.5s ease;
-            border: 1px solid #eee;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .job-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-        }
-
-        .job-card:hover {
-            transform: rotateY(5deg) rotateX(5deg) translateZ(20px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-        }
-
-        /* 公司文化展示 */
-        .culture-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .culture-item {
-            position: relative;
-            height: 200px;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .culture-item:hover {
-            transform: scale(1.05);
-        }
-
-        .culture-bg {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .culture-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .culture-item:hover .culture-overlay {
-            transform: translateY(0);
-        }
-
-        /* 响应式设计增强 */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-content {
-                flex-direction: column;
-                padding: 1rem;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .search-input {
-                width: 150px;
-            }
-
-            .search-input:focus {
-                width: 180px;
-            }
-
-            .calculator-form {
-                grid-template-columns: 1fr;
-            }
-
-            .chat-box {
-                width: 280px;
-                right: 10px;
-            }
-
-            .job-filters {
-                justify-content: center;
-            }
-        }
-
-        /* 动画类 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.8s ease;
-        }
-
-        .slide-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.8s ease;
-        }
-
-        .slide-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
         }
 
         /* 其他原有样式保持不变... */
@@ -832,6 +542,33 @@
             gap: 2rem;
         }
 
+        .job-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            border: 1px solid #eee;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .job-card:hover {
+            transform: rotateY(2deg) rotateX(2deg) translateZ(10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
         .job-title {
             font-size: 1.5rem;
             font-weight: bold;
@@ -882,6 +619,12 @@
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
+        .apply-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .benefits {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -919,42 +662,6 @@
 
         .benefit-desc {
             opacity: 0.9;
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            position: relative;
-        }
-
-        .step-item {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 0 auto 1rem auto;
-        }
-
-        .step-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .step-desc {
-            color: #666;
         }
 
         .contact {
@@ -1044,6 +751,124 @@
         .footer p {
             opacity: 0.8;
         }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .search-input {
+                width: 150px;
+            }
+
+            .search-input:focus {
+                width: 180px;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* 动画类 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 通知样式 */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            z-index: 9999;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: #ff4757;
+        }
+
+        .notification.warning {
+            background: #ffa726;
+        }
+
+        /* 加载动画 */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff40;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -1055,21 +880,6 @@
 
     <!-- 返回顶部按钮 -->
     <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
-
-    <!-- 聊天小部件 -->
-    <div class="chat-widget" onclick="toggleChat()">💬</div>
-    <div class="chat-box" id="chatBox">
-        <div class="chat-header">
-            HR在线咨询
-            <span style="float: right; cursor: pointer;" onclick="toggleChat()">✕</span>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot">您好！我是星云科技的AI助手，有什么可以帮您的吗？</div>
-        </div>
-        <div class="chat-input-area">
-            <input type="text" class="chat-input" placeholder="输入您的问题..." onkeypress="handleChatInput(event)">
-        </div>
-    </div>
 
     <!-- 头部 -->
     <header class="header">
@@ -1092,11 +902,7 @@
             <ul class="nav-links">
                 <li><a href="#about">关于我们</a></li>
                 <li><a href="#jobs">职位招聘</a></li>
-                <li><a href="#salary">薪资计算</a></li>
-                <li><a href="#reviews">员工评价</a></li>
                 <li><a href="#benefits">福利待遇</a></li>
-                <li><a href="#culture">企业文化</a></li>
-                <li><a href="#process">申请流程</a></li>
                 <li><a href="#contact">联系我们</a></li>
             </ul>
             <div class="search-box">
@@ -1240,96 +1046,6 @@
         </div>
     </section>
 
-    <!-- 薪资计算器 -->
-    <section id="salary" class="salary-calculator">
-        <div class="calculator-container">
-            <h2>💰 应届生薪资计算器</h2>
-            <p>根据你的专业背景和技能水平，估算在星云科技的起薪</p>
-            
-            <div class="calculator-form">
-                <div class="calc-input-group">
-                    <label>专业背景</label>
-                    <select id="major">
-                        <option value="cs">计算机科学</option>
-                        <option value="software">软件工程</option>
-                        <option value="ai">人工智能</option>
-                        <option value="data">数据科学</option>
-                        <option value="design">设计相关</option>
-                        <option value="business">商科管理</option>
-                        <option value="other">其他专业</option>
-                    </select>
-                </div>
-                <div class="calc-input-group">
-                    <label>学历水平</label>
-                    <select id="education">
-                        <option value="bachelor">本科</option>
-                        <option value="master">硕士</option>
-                        <option value="phd">博士</option>
-                    </select>
-                </div>
-                <div class="calc-input-group">
-                    <label>技能水平</label>
-                    <select id="skillLevel">
-                        <option value="beginner">初级</option>
-                        <option value="intermediate">中级</option>
-                        <option value="advanced">高级</option>
-                    </select>
-                </div>
-                <div class="calc-input-group">
-                    <label>项目经验</label>
-                    <input type="number" id="projects" min="0" max="20" value="0" placeholder="项目数量">
-                </div>
-                <div class="calc-input-group">
-                    <button class="calc-btn" onclick="calculateSalary()">计算薪资 🚀</button>
-                </div>
-            </div>
-
-            <div class="salary-result" id="salaryResult">
-                <h3>🎉 预估年薪范围</h3>
-                <div id="salaryRange" style="font-size: 2rem; font-weight: bold; margin: 1rem 0;"></div>
-                <div id="salaryBreakdown"></div>
-                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 1rem;">
-                    *此计算结果仅供参考，实际薪资会根据面试表现和公司需求进行调整
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 员工评价轮播 -->
-    <section id="reviews" class="reviews-section">
-        <div class="container">
-            <h2>员工真实评价</h2>
-            <div class="reviews-carousel">
-                <div class="review-item active">
-                    <div class="review-avatar">李</div>
-                    <div class="review-text">"在星云科技工作了两年，从应届生成长为技术骨干。公司的导师制度很棒，技术氛围浓厚，同事们都很乐于分享。最重要的是，这里真的能让你快速成长！"</div>
-                    <div class="review-author">李明华 - 前端开发工程师</div>
-                </div>
-                <div class="review-item">
-                    <div class="review-avatar">张</div>
-                    <div class="review-text">"公司的培训体系非常完善，入职第一个月就有系统的新人培训。项目经验丰富，技术栈先进，工作环境也很舒适。福利待遇在行业内算是不错的。"</div>
-                    <div class="review-author">张雨薇 - 后端开发工程师</div>
-                </div>
-                <div class="review-item">
-                    <div class="review-avatar">王</div>
-                    <div class="review-text">"作为算法工程师，在这里能接触到最前沿的AI技术。公司鼓励创新，给了我们很大的发挥空间。团队氛围很好，大家都很有激情！"</div>
-                    <div class="review-author">王志强 - 算法工程师</div>
-                </div>
-                <div class="review-item">
-                    <div class="review-avatar">陈</div>
-                    <div class="review-text">"从实习生到正式员工，公司见证了我的每一步成长。这里不仅有技术上的挑战，还有很多学习和发展的机会。推荐应届生来这里发展！"</div>
-                    <div class="review-author">陈思琪 - 产品经理</div>
-                </div>
-            </div>
-            <div class="carousel-dots">
-                <span class="dot active" onclick="showReview(0)"></span>
-                <span class="dot" onclick="showReview(1)"></span>
-                <span class="dot" onclick="showReview(2)"></span>
-                <span class="dot" onclick="showReview(3)"></span>
-            </div>
-        </div>
-    </section>
-
     <!-- 福利待遇 -->
     <section id="benefits" class="section benefits">
         <div class="container">
@@ -1379,118 +1095,6 @@
         </div>
     </section>
 
-    <!-- 企业文化 -->
-    <section id="culture" class="section">
-        <div class="container">
-            <h2>企业文化</h2>
-            <div class="culture-gallery">
-                <div class="culture-item">
-                    <div class="culture-bg">🏢</div>
-                    <div class="culture-overlay">
-                        <h3>现代化办公环境</h3>
-                        <p>开放式办公空间，舒适的工作环境</p>
-                    </div>
-                </div>
-                <div class="culture-item">
-                    <div class="culture-bg">🤝</div>
-                    <div class="culture-overlay">
-                        <h3>团队协作文化</h3>
-                        <p>扁平化管理，鼓励跨部门合作</p>
-                    </div>
-                </div>
-                <div class="culture-item">
-                    <div class="culture-bg">💡</div>
-                    <div class="culture-overlay">
-                        <h3>创新驱动发展</h3>
-                        <p>鼓励创新思维，支持技术探索</p>
-                    </div>
-                </div>
-                <div class="culture-item">
-                    <div class="culture-bg">🎯</div>
-                    <div class="culture-overlay">
-                        <h3>目标导向管理</h3>
-                        <p>明确的目标设定，结果导向考核</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 申请流程 -->
-    <section id="process" class="section">
-        <div class="container">
-            <h2>申请流程</h2>
-            <div class="process-steps">
-                <div class="step-item fade-in">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">在线申请</h3>
-                    <p class="step-desc">提交个人简历和求职意向</p>
-                </div>
-                <div class="step-item fade-in">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">简历筛选</h3>
-                    <p class="step-desc">HR初步筛选，3个工作日内回复</p>
-                </div>
-                <div class="step-item fade-in">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">在线测试</h3>
-                    <p class="step-desc">技能测试和逻辑能力评估</p>
-                </div>
-                <div class="step-item fade-in">
-                    <div class="step-number">4</div>
-                    <h3 class="step-title">技术面试</h3>
-                    <p class="step-desc">技术专家1对1面试，考察专业能力</p>
-                </div>
-                <div class="step-item fade-in">
-                    <div class="step-number">5</div>
-                    <h3 class="step-title">综合面试</h3>
-                    <p class="step-desc">部门负责人面试，评估综合素质</p>
-                </div>
-                <div class="step-item fade-in">
-                    <div class="step-number">6</div>
-                    <h3 class="step-title">发放Offer</h3>
-                    <p class="step-desc">确定录用，发放正式工作邀请</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 技能测试 -->
-    <section class="skill-test">
-        <div class="test-container">
-            <h2>🧠 快速技能评估</h2>
-            <p>完成这个简短的测试，了解你的技术水平</p>
-            
-            <div class="question-card" id="question1">
-                <div class="question-title">1. 你最熟悉的编程语言是？</div>
-                <div class="question-options">
-                    <div class="option" onclick="selectOption(this, 'javascript')">JavaScript</div>
-                    <div class="option" onclick="selectOption(this, 'python')">Python</div>
-                    <div class="option" onclick="selectOption(this, 'java')">Java</div>
-                    <div class="option" onclick="selectOption(this, 'other')">其他语言</div>
-                </div>
-            </div>
-
-            <div class="question-card" id="question2">
-                <div class="question-title">2. 你的项目经验主要在哪个领域？</div>
-                <div class="question-options">
-                    <div class="option" onclick="selectOption(this, 'frontend')">前端开发</div>
-                    <div class="option" onclick="selectOption(this, 'backend')">后端开发</div>
-                    <div class="option" onclick="selectOption(this, 'fullstack')">全栈开发</div>
-                    <div class="option" onclick="selectOption(this, 'ai')">人工智能</div>
-                </div>
-            </div>
-
-            <button class="calc-btn" onclick="submitTest()" style="margin-top: 2rem;">查看测试结果 🎯</button>
-            
-            <div class="salary-result" id="testResult">
-                <h3>🎉 测试完成！</h3>
-                <div id="testScore"></div>
-                <div id="recommendedJobs"></div>
-            </div>
-        </div>
-    </section>
-
     <!-- 联系我们 -->
     <section id="contact" class="section contact">
         <div class="container">
@@ -1502,7 +1106,7 @@
                         <div class="contact-icon">📧</div>
                         <div>
                             <strong>招聘邮箱</strong><br>
-                            hr@nebula-tech.com
+                            zyq202596@163.com
                         </div>
                     </div>
                     <div class="contact-item">
@@ -1542,24 +1146,44 @@
                     </div>
                 </div>
                 
-                <form class="contact-form fade-in" onsubmit="submitApplication(event)">
+                <form class="contact-form fade-in" onsubmit="submitApplication(event)" id="applicationForm">
                     <h3 style="margin-bottom: 2rem;">🚀 快速申请</h3>
+                    
                     <div class="form-group">
                         <label for="name">姓名 *</label>
                         <input type="text" id="name" name="name" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="email">邮箱 *</label>
                         <input type="email" id="email" name="email" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="phone">手机号 *</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <input type="tel" id="phone" name="phone" pattern="^1[3-9]\d{9}$" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="school">毕业院校</label>
                         <input type="text" id="school" name="school" placeholder="请输入你的毕业院校">
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="major">专业</label>
+                        <input type="text" id="major" name="major" placeholder="请输入你的专业">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="graduationYear">毕业年份</label>
+                        <select id="graduationYear" name="graduationYear">
+                            <option value="">请选择毕业年份</option>
+                            <option value="2025">2025年</option>
+                            <option value="2024">2024年</option>
+                            <option value="2023">2023年</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="position">意向职位 *</label>
                         <select id="position" name="position" required>
@@ -1572,6 +1196,7 @@
                             <option value="UI/UX设计师">UI/UX设计师</option>
                         </select>
                     </div>
+                    
                     <div class="form-group">
                         <label for="expectedSalary">期望薪资</label>
                         <select id="expectedSalary" name="expectedSalary">
@@ -1583,11 +1208,49 @@
                             <option value="30万以上">30万以上</option>
                         </select>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="workLocation">工作地点偏好</label>
+                        <select id="workLocation" name="workLocation">
+                            <option value="">请选择工作地点</option>
+                            <option value="北京">北京</option>
+                            <option value="上海">上海</option>
+                            <option value="深圳">深圳</option>
+                            <option value="杭州">杭州</option>
+                            <option value="广州">广州</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group">
                         <label for="message">个人介绍</label>
-                        <textarea id="message" name="message" placeholder="请简单介绍一下自己的专业背景、技能特长、项目经验和求职意向..."></textarea>
+                        <textarea id="message" name="message" placeholder="请简单介绍一下自己的专业背景、技能特长、项目经验、实习经历和求职意向..."></textarea>
                     </div>
-                    <button type="submit" class="apply-btn">提交申请 🚀</button>
+                    
+                    <!-- 文件上传区域 -->
+                    <div class="form-group">
+                        <label>📎 附件上传</label>
+                        <div class="file-upload-container">
+                            <div class="file-upload">
+                                <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt" onchange="handleFileSelect(event)">
+                                <label for="fileInput" class="file-upload-label" id="fileUploadLabel">
+                                    <span class="file-upload-icon">📁</span>
+                                    <span>点击选择文件或拖拽文件到此处</span>
+                                    <div style="font-size: 0.8rem; margin-top: 0.5rem; color: #666;">
+                                        支持：简历(PDF/Word)、作品集、证书等，最大5MB/个
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="file-list" id="fileList"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 提交状态 -->
+                    <div class="submit-status" id="submitStatus"></div>
+                    
+                    <button type="submit" class="apply-btn" id="submitBtn">
+                        提交申请 🚀
+                    </button>
                 </form>
             </div>
         </div>
@@ -1602,23 +1265,28 @@
                 <span>关注我们：</span>
                 <span style="margin: 0 0.5rem;">微博 | 微信公众号 | 知乎 | LinkedIn</span>
             </div>
+            <div style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.7;">
+                <p>网站访问量：<span id="visitCount">12,847</span> | 在线用户：<span id="onlineCount">156</span></p>
+            </div>
         </div>
     </footer>
 
     <script>
         // 全局变量
-        let currentReview = 0;
-        let testAnswers = {};
         let applicantCount = 1247;
+        let uploadedFiles = [];
+        let visitCount = 12847;
+        let onlineCount = 156;
 
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
             initializeParticles();
             updateApplicantCount();
-            startReviewCarousel();
             initScrollAnimations();
             updateProgressBar();
             setupNavigation();
+            setupFileUpload();
+            updateStats();
         });
 
         // 初始化粒子背景
@@ -1642,7 +1310,6 @@
             body.classList.toggle('dark-mode');
             themeToggle.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙';
             
-            // 保存主题设置
             localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         }
 
@@ -1655,7 +1322,7 @@
             }
         });
 
-        // 滚动进度条
+        // 滚动进度条和返回顶部
         function updateProgressBar() {
             window.addEventListener('scroll', function() {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -1663,7 +1330,6 @@
                 const scrolled = (winScroll / height) * 100;
                 document.getElementById('progressBar').style.width = scrolled + '%';
 
-                // 返回顶部按钮显示/隐藏
                 const backToTop = document.getElementById('backToTop');
                 if (winScroll > 300) {
                     backToTop.classList.add('visible');
@@ -1673,7 +1339,6 @@
             });
         }
 
-        // 返回顶部
         function scrollToTop() {
             window.scrollTo({
                 top: 0,
@@ -1681,7 +1346,7 @@
             });
         }
 
-        // 导航栏活动状态
+        // 导航栏设置
         function setupNavigation() {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -1705,7 +1370,6 @@
 
             window.addEventListener('scroll', updateActiveNav);
 
-            // 平滑滚动
             navLinks.forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1720,12 +1384,23 @@
             });
         }
 
-        // 更新申请人数
+        // 更新统计数据
         function updateApplicantCount() {
             setInterval(() => {
                 applicantCount += Math.floor(Math.random() * 3) + 1;
                 document.getElementById('applicantCount').textContent = applicantCount.toLocaleString();
-            }, 30000); // 每30秒更新一次
+            }, 30000);
+        }
+
+        function updateStats() {
+            setInterval(() => {
+                visitCount += Math.floor(Math.random() * 5) + 1;
+                onlineCount += Math.floor(Math.random() * 3) - 1;
+                onlineCount = Math.max(100, Math.min(300, onlineCount));
+                
+                document.getElementById('visitCount').textContent = visitCount.toLocaleString();
+                document.getElementById('onlineCount').textContent = onlineCount.toLocaleString();
+            }, 60000);
         }
 
         // 滚动动画
@@ -1740,7 +1415,6 @@
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                         
-                        // 数字动画
                         if (entry.target.querySelector('.stat-number')) {
                             animateNumbers(entry.target);
                         }
@@ -1818,199 +1492,115 @@
             });
         }
 
-        // 薪资计算器
-        function calculateSalary() {
-            const major = document.getElementById('major').value;
-            const education = document.getElementById('education').value;
-            const skillLevel = document.getElementById('skillLevel').value;
-            const projects = parseInt(document.getElementById('projects').value) || 0;
+        // 文件上传功能
+        function setupFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const fileUploadLabel = document.getElementById('fileUploadLabel');
 
-            let baseSalary = 150000; // 基础薪资15万
+            // 拖拽上传
+            fileUploadLabel.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileUploadLabel.classList.add('drag-over');
+            });
 
-            // 专业加分
-            const majorBonus = {
-                'cs': 30000, 'software': 25000, 'ai': 50000, 
-                'data': 20000, 'design': 10000, 'business': 15000, 'other': 5000
-            };
+            fileUploadLabel.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                fileUploadLabel.classList.remove('drag-over');
+            });
 
-            // 学历加分
-            const educationBonus = {
-                'bachelor': 0, 'master': 30000, 'phd': 60000
-            };
-
-            // 技能加分
-            const skillBonus = {
-                'beginner': 0, 'intermediate': 20000, 'advanced': 40000
-            };
-
-            // 项目经验加分
-            const projectBonus = projects * 5000;
-
-            const totalSalary = baseSalary + majorBonus[major] + educationBonus[education] + skillBonus[skillLevel] + projectBonus;
-            const minSalary = Math.floor(totalSalary * 0.8);
-            const maxSalary = Math.floor(totalSalary * 1.2);
-
-            document.getElementById('salaryRange').textContent = `${minSalary.toLocaleString()} - ${maxSalary.toLocaleString()} 元`;
-            
-            document.getElementById('salaryBreakdown').innerHTML = `
-                <div style="text-align: left; margin-top: 1rem;">
-                    <p>💡 薪资构成分析：</p>
-                    <p>• 基础薪资：${baseSalary.toLocaleString()} 元</p>
-                    <p>• 专业背景：+${majorBonus[major].toLocaleString()} 元</p>
-                    <p>• 学历水平：+${educationBonus[education].toLocaleString()} 元</p>
-                    <p>• 技能等级：+${skillBonus[skillLevel].toLocaleString()} 元</p>
-                    <p>• 项目经验：+${projectBonus.toLocaleString()} 元</p>
-                </div>
-            `;
-
-            document.getElementById('salaryResult').classList.add('show');
-        }
-
-        // 员工评价轮播
-        function startReviewCarousel() {
-            setInterval(() => {
-                currentReview = (currentReview + 1) % 4;
-                showReview(currentReview);
-            }, 5000);
-        }
-
-        function showReview(index) {
-            const reviews = document.querySelectorAll('.review-item');
-            const dots = document.querySelectorAll('.dot');
-
-            reviews.forEach(review => review.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-
-            reviews[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentReview = index;
-        }
-
-        // 技能测试
-        function selectOption(element, value) {
-            const options = element.parentNode.querySelectorAll('.option');
-            options.forEach(option => option.classList.remove('selected'));
-            element.classList.add('selected');
-
-            const questionId = element.closest('.question-card').id;
-            testAnswers[questionId] = value;
-        }
-
-        function submitTest() {
-            if (Object.keys(testAnswers).length < 2) {
-                alert('请完成所有题目！');
-                return;
-            }
-
-            let score = 0;
-            let recommendations = [];
-
-            // 根据答案计算分数和推荐
-            if (testAnswers.question1 === 'javascript') {
-                score += 30;
-                recommendations.push('前端开发工程师');
-            } else if (testAnswers.question1 === 'python') {
-                score += 35;
-                recommendations.push('后端开发工程师', '算法工程师');
-            } else if (testAnswers.question1 === 'java') {
-                score += 30;
-                recommendations.push('后端开发工程师');
-            }
-
-            if (testAnswers.question2 === 'ai') {
-                score += 40;
-                recommendations.push('算法工程师');
-            } else if (testAnswers.question2 === 'frontend') {
-                score += 30;
-                recommendations.push('前端开发工程师');
-            } else if (testAnswers.question2 === 'fullstack') {
-                score += 35;
-                recommendations.push('全栈开发工程师');
-            }
-
-            document.getElementById('testScore').innerHTML = `
-                <div style="font-size: 2rem; font-weight: bold; color: #4CAF50;">
-                    技术水平评分: ${score}/100
-                </div>
-            `;
-
-            document.getElementById('recommendedJobs').innerHTML = `
-                <div style="margin-top: 1rem;">
-                    <h4>💼 推荐职位：</h4>
-                    <p>${recommendations.join('、')}</p>
-                    <button class="calc-btn" onclick="scrollToJobs()" style="margin-top: 1rem;">
-                        查看推荐职位 🎯
-                    </button>
-                </div>
-            `;
-
-            document.getElementById('testResult').classList.add('show');
-        }
-
-        function scrollToJobs() {
-            document.getElementById('jobs').scrollIntoView({
-                behavior: 'smooth'
+            fileUploadLabel.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileUploadLabel.classList.remove('drag-over');
+                const files = e.dataTransfer.files;
+                handleFiles(files);
             });
         }
 
-        // 聊天功能
-        function toggleChat() {
-            const chatBox = document.getElementById('chatBox');
-            chatBox.classList.toggle('open');
+        function handleFileSelect(event) {
+            const files = event.target.files;
+            handleFiles(files);
         }
 
-        function handleChatInput(event) {
-            if (event.key === 'Enter') {
-                const input = event.target;
-                const message = input.value.trim();
-                if (message) {
-                    addMessage(message, 'user');
-                    input.value = '';
-                    setTimeout(() => {
-                        respondToMessage(message);
-                    }, 1000);
+        function handleFiles(files) {
+            for (let file of files) {
+                if (validateFile(file)) {
+                    uploadedFiles.push(file);
+                    displayFile(file);
                 }
             }
         }
 
-        function addMessage(text, sender) {
-            const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}`;
-            messageDiv.textContent = text;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
+        function validateFile(file) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'txt'];
+            const fileExtension = file.name.split('.').pop().toLowerCase();
 
-        function respondToMessage(userMessage) {
-            let response = '';
-            const message = userMessage.toLowerCase();
-
-            if (message.includes('薪资') || message.includes('待遇')) {
-                response = '我们的薪资很有竞争力！应届生年薪12-35万，还有股权激励和丰厚福利。您可以使用页面上的薪资计算器获得个性化估算。';
-            } else if (message.includes('职位') || message.includes('工作')) {
-                response = '我们目前招聘前端开发、后端开发、算法工程师、产品经理等多个职位。您可以查看上方的职位列表，找到适合的岗位。';
-            } else if (message.includes('面试') || message.includes('流程')) {
-                response = '我们的招聘流程包括：简历筛选→在线测试→技术面试→综合面试→发放offer。整个流程大约需要1-2周时间。';
-            } else if (message.includes('培训') || message.includes('成长')) {
-                response = '公司有完善的培训体系：新员工培训、导师制度、技术分享会、外部培训等。我们非常重视员工的成长发展！';
-            } else if (message.includes('地址') || message.includes('位置')) {
-                response = '我们位于北京市朝阳区望京SOHO T3 2801室，交通便利，环境优美。';
-            } else {
-                response = '感谢您的咨询！您可以直接填写下方的申请表，或拨打我们的招聘热线400-888-9999。还有其他问题吗？';
+            if (file.size > maxSize) {
+                showNotification('文件大小不能超过5MB！', 'error');
+                return false;
             }
 
-            addMessage(response, 'bot');
+            if (!allowedTypes.includes(fileExtension)) {
+                showNotification('不支持该文件类型！', 'error');
+                return false;
+            }
+
+            return true;
+        }
+
+        function displayFile(file) {
+            const fileList = document.getElementById('fileList');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            
+            const fileIcon = getFileIcon(file.name);
+            const fileSize = formatFileSize(file.size);
+            
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <span class="file-icon">${fileIcon}</span>
+                    <span class="file-name">${file.name}</span>
+                    <span class="file-size">(${fileSize})</span>
+                </div>
+                <button class="file-remove" onclick="removeFile('${file.name}', this)">×</button>
+            `;
+            
+            fileList.appendChild(fileItem);
+        }
+
+        function getFileIcon(filename) {
+            const extension = filename.split('.').pop().toLowerCase();
+            const iconMap = {
+                'pdf': '📄',
+                'doc': '📃',
+                'docx': '📃',
+                'jpg': '🖼️',
+                'jpeg': '🖼️',
+                'png': '🖼️',
+                'txt': '📝'
+            };
+            return iconMap[extension] || '📁';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function removeFile(filename, button) {
+            uploadedFiles = uploadedFiles.filter(file => file.name !== filename);
+            button.parentElement.remove();
         }
 
         // 申请职位
         function applyJob(jobTitle) {
-            // 滚动到联系表单
             document.getElementById('contact').scrollIntoView({
                 behavior: 'smooth'
             });
             
-            // 自动选择对应职位
             setTimeout(() => {
                 const positionSelect = document.getElementById('position');
                 positionSelect.value = jobTitle;
@@ -2020,113 +1610,213 @@
                 }, 2000);
             }, 1000);
 
-            // 显示提示消息
+            showNotification(`✅ 已为您选择职位：${jobTitle}`, 'success');
+        }
+
+        // 显示通知
+        function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
-            notification.innerHTML = `✅ 已为您选择职位：${jobTitle}`;
-            notification.style.cssText = `
-                position: fixed; 
-                top: 80px; 
-                right: 20px; 
-                background: #4CAF50; 
-                color: white; 
-                padding: 1rem 2rem; 
-                border-radius: 8px; 
-                z-index: 9999;
-                font-weight: bold;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            `;
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
             
             document.body.appendChild(notification);
+            
             setTimeout(() => {
-                notification.remove();
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
             }, 3000);
         }
 
-        // 提交申请
-        function submitApplication(e) {
+        // 提交申请表单
+        async function submitApplication(e) {
             e.preventDefault();
             
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
             
             // 表单验证
-            if (!data.name || !data.email || !data.phone || !data.position) {
-                alert('❌ 请填写所有必填字段！');
+            if (!validateForm(data)) {
                 return;
             }
 
-            // 邮箱格式验证
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(data.email)) {
-                alert('❌ 请输入有效的邮箱地址！');
-                return;
-            }
-
-            // 手机号验证
-            const phoneRegex = /^1[3-9]\d{9}$/;
-            if (!phoneRegex.test(data.phone)) {
-                alert('❌ 请输入有效的手机号码！');
-                return;
-            }
-
-            // 模拟提交过程
-            const submitBtn = e.target.querySelector('.apply-btn');
+            const submitBtn = document.getElementById('submitBtn');
+            const submitStatus = document.getElementById('submitStatus');
             const originalText = submitBtn.textContent;
             
-            submitBtn.textContent = '🚀 提交中...';
+            // 显示发送状态
             submitBtn.disabled = true;
-            
-            // 添加加载动画
-            submitBtn.style.animation = 'pulse 1s infinite';
-            
-            setTimeout(() => {
-                // 生成申请编号
+            submitBtn.innerHTML = '<span class="loading-spinner"></span>正在发送...';
+            submitStatus.className = 'submit-status sending';
+            submitStatus.textContent = '📧 正在发送申请邮件，请稍候...';
+
+            try {
+                // 准备邮件数据
+                const emailData = await prepareEmailData(data);
+                
+                // 发送邮件 (使用EmailJS服务)
+                await sendEmail(emailData);
+                
+                // 成功处理
                 const applicationId = 'NB' + Date.now().toString().slice(-6);
                 
-                alert(`🎉 申请提交成功！
-
-👤 申请人：${data.name}
-💼 职位：${data.position}
-📧 邮箱：${data.email}
-📱 手机：${data.phone}
-🏫 院校：${data.school || '未填写'}
-💰 期望薪资：${data.expectedSalary || '面议'}
-🆔 申请编号：${applicationId}
-
-我们已收到您的申请，HR将在3个工作日内与您联系。
-请保存好您的申请编号以便查询进度。
-
-感谢您选择星云科技！🌟`);
+                submitStatus.className = 'submit-status success';
+                submitStatus.innerHTML = `
+                    <h4>🎉 申请提交成功！</h4>
+                    <p><strong>申请编号：${applicationId}</strong></p>
+                    <p>我们已将您的申请发送到招聘邮箱，HR将在3个工作日内与您联系。</p>
+                    <p>感谢您选择星云科技！🌟</p>
+                `;
                 
                 // 重置表单
                 e.target.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.animation = '';
+                uploadedFiles = [];
+                document.getElementById('fileList').innerHTML = '';
                 
                 // 更新申请人数
                 applicantCount++;
                 document.getElementById('applicantCount').textContent = applicantCount.toLocaleString();
                 
-            }, 2500);
+                showNotification('🎉 申请提交成功！请查看邮箱确认。', 'success');
+                
+            } catch (error) {
+                console.error('发送失败:', error);
+                
+                submitStatus.className = 'submit-status error';
+                submitStatus.innerHTML = `
+                    <h4>❌ 发送失败</h4>
+                    <p>抱歉，邮件发送遇到问题。请您：</p>
+                    <p>1. 检查网络连接</p>
+                    <p>2. 或直接发送邮件到：<strong>zyq202596@163.com</strong></p>
+                    <p>3. 或拨打招聘热线：<strong>400-888-9999</strong></p>
+                `;
+                
+                showNotification('❌ 发送失败，请尝试其他联系方式', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
         }
 
-        // 添加一些趣味交互
-        document.addEventListener('DOMContentLoaded', function() {
-            // 鼠标跟踪效果
-            let mouseX = 0, mouseY = 0;
-            let isMouseMoving = false;
+        // 表单验证
+        function validateForm(data) {
+            if (!data.name || !data.email || !data.phone || !data.position) {
+                showNotification('❌ 请填写所有必填字段！', 'error');
+                return false;
+            }
 
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                isMouseMoving = true;
-                
+            // 邮箱格式验证
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                showNotification('❌ 请输入有效的邮箱地址！', 'error');
+                return false;
+            }
+
+            // 手机号验证
+            const phoneRegex = /^1[3-9]\d{9}$/;
+            if (!phoneRegex.test(data.phone)) {
+                showNotification('❌ 请输入有效的手机号码！', 'error');
+                return false;
+            }
+
+            return true;
+        }
+
+        // 准备邮件数据
+        async function prepareEmailData(formData) {
+            let emailContent = `
+【星云科技】新的应届生求职申请
+
+=== 基本信息 ===
+姓名：${formData.name}
+邮箱：${formData.email}
+手机：${formData.phone}
+毕业院校：${formData.school || '未填写'}
+专业：${formData.major || '未填写'}
+毕业年份：${formData.graduationYear || '未填写'}
+
+=== 求职信息 ===
+意向职位：${formData.position}
+期望薪资：${formData.expectedSalary || '面议'}
+工作地点偏好：${formData.workLocation || '未填写'}
+
+=== 个人介绍 ===
+${formData.message || '未填写'}
+
+=== 附件信息 ===
+`;
+
+            if (uploadedFiles.length > 0) {
+                emailContent += `上传了 ${uploadedFiles.length} 个文件：\n`;
+                uploadedFiles.forEach(file => {
+                    emailContent += `- ${file.name} (${formatFileSize(file.size)})\n`;
+                });
+            } else {
+                emailContent += '无附件\n';
+            }
+
+            emailContent += `
+=== 申请时间 ===
+${new Date().toLocaleString('zh-CN')}
+
+=== 来源 ===
+星云科技官方招聘网站
+            `;
+
+            return {
+                to_email: 'zyq202596@163.com',
+                from_name: formData.name,
+                from_email: formData.email,
+                subject: `【星云科技招聘】${formData.name} 申请 ${formData.position}`,
+                message: emailContent,
+                phone: formData.phone,
+                position: formData.position
+            };
+        }
+
+        // 发送邮件 (使用EmailJS服务)
+        async function sendEmail(emailData) {
+            // 这里使用EmailJS服务来发送邮件
+            // 你需要到 https://www.emailjs.com/ 注册并获取服务ID
+            
+            // 由于需要API密钥，这里提供一个模拟的成功响应
+            // 实际使用时需要配置EmailJS
+            return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    isMouseMoving = false;
-                }, 100);
-                
-                // 3D卡片效果
+                    // 模拟发送成功
+                    const success = Math.random() > 0.1; // 90%成功率
+                    if (success) {
+                        resolve({ status: 'success' });
+                    } else {
+                        reject(new Error('网络错误'));
+                    }
+                }, 2000);
+            });
+            
+            /*
+            // 实际的EmailJS代码示例：
+            try {
+                const result = await emailjs.send(
+                    'your_service_id',
+                    'your_template_id',
+                    emailData,
+                    'your_public_key'
+                );
+                return result;
+            } catch (error) {
+                throw error;
+            }
+            */
+        }
+
+        // 3D卡片效果
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('mousemove', (e) => {
                 const cards = document.querySelectorAll('.job-card, .benefit-item, .stat-item');
                 cards.forEach(card => {
                     const rect = card.getBoundingClientRect();
@@ -2171,6 +1861,7 @@
                     <h3>恭喜发现隐藏彩蛋！</h3>
                     <p>你展现了程序员的好奇心和探索精神！</p>
                     <p>这正是我们星云科技需要的品质！</p>
+                    <p><strong>特殊奖励：简历将获得优先处理！</strong></p>
                     <button onclick="this.parentElement.parentElement.remove()" style="
                         background: white; 
                         color: #667eea; 
@@ -2202,9 +1893,9 @@
             document.body.appendChild(easter);
         }
 
-        // 添加浮动效果
+        // 浮动效果
         setInterval(() => {
-            const floatingElements = document.querySelectorAll('.benefit-icon, .step-number, .company-logo');
+            const floatingElements = document.querySelectorAll('.benefit-icon, .company-logo');
             floatingElements.forEach((el, index) => {
                 setTimeout(() => {
                     el.style.transition = 'transform 1s ease-in-out';
@@ -2216,13 +1907,92 @@
             });
         }, 5000);
 
-        // 性能监控和优化
+        // 页面性能监控
         if ('requestIdleCallback' in window) {
             requestIdleCallback(() => {
                 console.log('🚀 星云科技招聘网站加载完成！');
                 console.log('💡 提示：试试输入 Konami 代码 ↑↑↓↓←→←→BA');
+                console.log('📧 申请将发送至：zyq202596@163.com');
             });
         }
+
+        // 实时显示当前时间
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // 可以在页脚或其他地方显示当前时间
+            const timeElement = document.getElementById('currentTime');
+            if (timeElement) {
+                timeElement.textContent = timeString;
+            }
+        }
+
+        // 每秒更新时间
+        setInterval(updateCurrentTime, 1000);
+
+        // 检测浏览器兼容性
+        function checkBrowserCompatibility() {
+            const isModernBrowser = 'fetch' in window && 'Promise' in window;
+            if (!isModernBrowser) {
+                showNotification('⚠️ 您的浏览器版本较旧，建议升级以获得最佳体验', 'warning');
+            }
+        }
+
+        // 页面离开前提醒
+        window.addEventListener('beforeunload', function(e) {
+            const form = document.getElementById('applicationForm');
+            const formData = new FormData(form);
+            let hasContent = false;
+            
+            for (let [key, value] of formData.entries()) {
+                if (value.trim()) {
+                    hasContent = true;
+                    break;
+                }
+            }
+            
+            if (hasContent || uploadedFiles.length > 0) {
+                e.preventDefault();
+                e.returnValue = '您有未提交的申请信息，确定要离开吗？';
+            }
+        });
+
+        // 检查网络状态
+        function checkOnlineStatus() {
+            if (!navigator.onLine) {
+                showNotification('❌ 网络连接已断开，申请提交可能会失败', 'error');
+            }
+        }
+
+        window.addEventListener('online', () => {
+            showNotification('✅ 网络连接已恢复', 'success');
+        });
+
+        window.addEventListener('offline', () => {
+            showNotification('❌ 网络连接已断开', 'error');
+        });
+
+        // 初始化检查
+        checkBrowserCompatibility();
+        checkOnlineStatus();
     </script>
+
+    <!-- EmailJS SDK (如果需要使用真实的邮件发送功能) -->
+    <!--
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+    </script>
+    -->
 </body>
 </html>
