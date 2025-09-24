@@ -1,0 +1,2228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星云科技 - 2025应届毕业生招聘</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* 深色模式 */
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .nav, 
+        body.dark-mode .job-card, 
+        body.dark-mode .contact-info, 
+        body.dark-mode .contact-form,
+        body.dark-mode .stat-item {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .about {
+            background: #222;
+        }
+
+        body.dark-mode .contact {
+            background: #222;
+        }
+
+        /* 主题切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 进度条 */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* 头部增强 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 粒子背景 */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+
+        @keyframes float {
+            0% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 1; 
+            }
+            90% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(-100px) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .company-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        /* 实时招聘状态 */
+        .live-status {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #4CAF50;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* 导航栏增强 */
+        .nav {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 1rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            padding: 1rem 1.5rem;
+            display: block;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        /* 搜索框 */
+        .search-box {
+            position: relative;
+            margin: 0 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border: 2px solid #eee;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            width: 200px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            width: 250px;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #667eea;
+            cursor: pointer;
+        }
+
+        /* 职位筛选器 */
+        .job-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* 薪资计算器 */
+        .salary-calculator {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 3rem 0;
+            margin: 2rem 0;
+        }
+
+        .calculator-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .calculator-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            align-items: end;
+        }
+
+        .calc-input-group {
+            text-align: left;
+        }
+
+        .calc-input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .calc-input-group select,
+        .calc-input-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .calc-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .salary-result {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .salary-result.show {
+            display: block;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        /* 员工评价轮播 */
+        .reviews-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .reviews-carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .review-item {
+            background: white;
+            padding: 3rem;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .review-item.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .review-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1rem auto;
+        }
+
+        .review-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .review-author {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #667eea;
+            transform: scale(1.2);
+        }
+
+        /* 技能测试 */
+        .skill-test {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .question-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .question-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-options {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .option {
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: white;
+        }
+
+        .option.selected {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+
+        /* 实时聊天 */
+        .chat-widget {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chat-widget:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-box {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform: scale(0);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .chat-box.open {
+            transform: scale(1);
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            height: 280px;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.bot {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        /* 3D职位卡片 */
+        .job-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.5s ease;
+            border: 1px solid #eee;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .job-card:hover {
+            transform: rotateY(5deg) rotateX(5deg) translateZ(20px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        /* 公司文化展示 */
+        .culture-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .culture-item {
+            position: relative;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .culture-item:hover {
+            transform: scale(1.05);
+        }
+
+        .culture-bg {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .culture-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .culture-item:hover .culture-overlay {
+            transform: translateY(0);
+        }
+
+        /* 响应式设计增强 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-content {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .search-input {
+                width: 150px;
+            }
+
+            .search-input:focus {
+                width: 180px;
+            }
+
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-box {
+                width: 280px;
+                right: 10px;
+            }
+
+            .job-filters {
+                justify-content: center;
+            }
+        }
+
+        /* 动画类 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 其他原有样式保持不变... */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about {
+            background: #f8f9fa;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .job-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .job-department {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .job-requirements {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .job-requirements li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .job-requirements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .apply-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-weight: 500;
+        }
+
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .benefits {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: scale(1.05);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-desc {
+            opacity: 0.9;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        .step-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem auto;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-desc {
+            color: #666;
+        }
+
+        .contact {
+            background: #f8f9fa;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- 进度条 -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- 主题切换按钮 -->
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <!-- 聊天小部件 -->
+    <div class="chat-widget" onclick="toggleChat()">💬</div>
+    <div class="chat-box" id="chatBox">
+        <div class="chat-header">
+            HR在线咨询
+            <span style="float: right; cursor: pointer;" onclick="toggleChat()">✕</span>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">您好！我是星云科技的AI助手，有什么可以帮您的吗？</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" placeholder="输入您的问题..." onkeypress="handleChatInput(event)">
+        </div>
+    </div>
+
+    <!-- 头部 -->
+    <header class="header">
+        <div class="particles" id="particles"></div>
+        <div class="header-content">
+            <div class="company-logo">🚀 星云科技</div>
+            <h1>2025应届毕业生招聘</h1>
+            <p>加入我们，成为下一代科技创新者</p>
+            <div class="live-status">
+                <div class="status-dot"></div>
+                <span>正在热招中 - 已有 <span id="applicantCount">1,247</span> 人申请</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航栏 -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-brand">星云科技</div>
+            <ul class="nav-links">
+                <li><a href="#about">关于我们</a></li>
+                <li><a href="#jobs">职位招聘</a></li>
+                <li><a href="#salary">薪资计算</a></li>
+                <li><a href="#reviews">员工评价</a></li>
+                <li><a href="#benefits">福利待遇</a></li>
+                <li><a href="#culture">企业文化</a></li>
+                <li><a href="#process">申请流程</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="搜索职位..." id="searchInput">
+                <button class="search-btn" onclick="searchJobs()">🔍</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 关于公司 -->
+    <section id="about" class="section about">
+        <div class="container">
+            <h2>关于星云科技</h2>
+            <div class="about-content">
+                <div class="about-text slide-in-left">
+                    <p>星云科技成立于2018年，是一家专注于人工智能、云计算和大数据的高科技公司。我们致力于通过前沿技术解决现实世界的复杂问题，为客户提供创新的解决方案。</p>
+                    <p>公司拥有开放包容的企业文化，鼓励创新思维和技术探索。我们相信年轻人的无限潜能，为应届毕业生提供完善的培养体系和广阔的发展平台。</p>
+                    <p>加入星云科技，与业界顶尖的技术专家共事，参与改变世界的项目，实现你的技术梦想！</p>
+                </div>
+                <div class="about-stats slide-in-right">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="500">0</div>
+                        <div class="stat-label">优秀员工</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="100">0</div>
+                        <div class="stat-label">企业客户</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label">技术专利</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="95">0</div>
+                        <div class="stat-label">员工满意度</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 职位招聘 -->
+    <section id="jobs" class="section">
+        <div class="container">
+            <h2>热招职位</h2>
+            
+            <!-- 职位筛选器 -->
+            <div class="job-filters">
+                <button class="filter-btn active" onclick="filterJobs('all')">全部职位</button>
+                <button class="filter-btn" onclick="filterJobs('tech')">技术研发</button>
+                <button class="filter-btn" onclick="filterJobs('product')">产品设计</button>
+                <button class="filter-btn" onclick="filterJobs('data')">数据分析</button>
+                <button class="filter-btn" onclick="filterJobs('ai')">人工智能</button>
+            </div>
+
+            <div class="jobs-grid" id="jobsGrid">
+                <div class="job-card fade-in" data-category="tech">
+                    <h3 class="job-title">前端开发工程师</h3>
+                    <p class="job-department">技术研发部</p>
+                    <div class="job-salary" style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">💰 15-25万/年</div>
+                    <ul class="job-requirements">
+                        <li>计算机相关专业本科及以上学历</li>
+                        <li>熟练掌握HTML、CSS、JavaScript</li>
+                        <li>了解React、Vue等前端框架</li>
+                        <li>具备良好的代码规范和团队协作能力</li>
+                        <li>对新技术有强烈的学习兴趣</li>
+                    </ul>
+                    <button class="apply-btn" onclick="applyJob('前端开发工程师')">立即申请 ⚡</button>
+                </div>
+
+                <div class="job-card fade-in" data-category="tech">
+                    <h3 class="job-title">后端开发工程师</h3>
+                    <p class="job-department">技术研发部</p>
+                    <div class="job-salary" style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">💰 18-28万/年</div>
+                    <ul class="job-requirements">
+                        <li>计算机相关专业本科及以上学历</li>
+                        <li>熟练掌握Java、Python或Go语言</li>
+                        <li>了解Spring、Django等开发框架</li>
+                        <li>熟悉MySQL、Redis等数据库</li>
+                        <li>具备良好的系统设计思维</li>
+                    </ul>
+                    <button class="apply-btn" onclick="applyJob('后端开发工程师')">立即申请 ⚡</button>
+                </div>
+
+                <div class="job-card fade-in" data-category="ai">
+                    <h3 class="job-title">算法工程师</h3>
+                    <p class="job-department">AI研究院</p>
+                    <div class="job-salary" style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">💰 20-35万/年</div>
+                    <ul class="job-requirements">
+                        <li>计算机、数学、统计学相关专业</li>
+                        <li>扎实的数学基础和算法功底</li>
+                        <li>熟练掌握Python、TensorFlow或PyTorch</li>
+                        <li>了解机器学习和深度学习原理</li>
+                        <li>有相关项目经验或竞赛获奖经历优先</li>
+                    </ul>
+                    <button class="apply-btn" onclick="applyJob('算法工程师')">立即申请 ⚡</button>
+                </div>
+
+                <div class="job-card fade-in" data-category="product">
+                    <h3 class="job-title">产品经理</h3>
+                    <p class="job-department">产品部</p>
+                    <div class="job-salary" style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">💰 16-26万/年</div>
+                    <ul class="job-requirements">
+                        <li>计算机、工商管理等相关专业</li>
+                        <li>具备良好的逻辑思维和沟通能力</li>
+                        <li>了解产品设计流程和用户体验</li>
+                        <li>熟练使用原型设计工具</li>
+                        <li>对互联网产品有敏锐的洞察力</li>
+                    </ul>
+                    <button class="apply-btn" onclick="applyJob('产品经理')">立即申请 ⚡</button>
+                </div>
+
+                <div class="job-card fade-in" data-category="data">
+                    <h3 class="job-title">数据分析师</h3>
+                    <p class="job-department">数据智能部</p>
+                    <div class="job-salary" style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">💰 14-24万/年</div>
+                    <ul class="job-requirements">
+                        <li>统计学、数学、计算机相关专业</li>
+                        <li>熟练掌握SQL、Python、R语言</li>
+                        <li>了解数据挖掘和统计分析方法</li>
+                        <li>熟悉Tableau、Power BI等可视化工具</li>
+                        <li>具备良好的数据敏感性</li>
+                    </ul>
+                    <button class="apply-btn" onclick="applyJob('数据分析师')">立即申请 ⚡</button>
+                </div>
+
+                <div class="job-card fade-in" data-category="product">
+                    <h3 class="job-title">UI/UX设计师</h3>
+                    <p class="job-department">设计部</p>
+                    <div class="job-salary" style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">💰 12-22万/年</div>
+                    <ul class="job-requirements">
+                        <li>设计、美术相关专业背景</li>
+                        <li>熟练掌握Sketch、Figma、Adobe套件</li>
+                        <li>具备良好的视觉设计和交互设计能力</li>
+                        <li>了解前端开发基础知识</li>
+                        <li>有创意思维和用户体验意识</li>
+                    </ul>
+                    <button class="apply-btn" onclick="applyJob('UI/UX设计师')">立即申请 ⚡</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 薪资计算器 -->
+    <section id="salary" class="salary-calculator">
+        <div class="calculator-container">
+            <h2>💰 应届生薪资计算器</h2>
+            <p>根据你的专业背景和技能水平，估算在星云科技的起薪</p>
+            
+            <div class="calculator-form">
+                <div class="calc-input-group">
+                    <label>专业背景</label>
+                    <select id="major">
+                        <option value="cs">计算机科学</option>
+                        <option value="software">软件工程</option>
+                        <option value="ai">人工智能</option>
+                        <option value="data">数据科学</option>
+                        <option value="design">设计相关</option>
+                        <option value="business">商科管理</option>
+                        <option value="other">其他专业</option>
+                    </select>
+                </div>
+                <div class="calc-input-group">
+                    <label>学历水平</label>
+                    <select id="education">
+                        <option value="bachelor">本科</option>
+                        <option value="master">硕士</option>
+                        <option value="phd">博士</option>
+                    </select>
+                </div>
+                <div class="calc-input-group">
+                    <label>技能水平</label>
+                    <select id="skillLevel">
+                        <option value="beginner">初级</option>
+                        <option value="intermediate">中级</option>
+                        <option value="advanced">高级</option>
+                    </select>
+                </div>
+                <div class="calc-input-group">
+                    <label>项目经验</label>
+                    <input type="number" id="projects" min="0" max="20" value="0" placeholder="项目数量">
+                </div>
+                <div class="calc-input-group">
+                    <button class="calc-btn" onclick="calculateSalary()">计算薪资 🚀</button>
+                </div>
+            </div>
+
+            <div class="salary-result" id="salaryResult">
+                <h3>🎉 预估年薪范围</h3>
+                <div id="salaryRange" style="font-size: 2rem; font-weight: bold; margin: 1rem 0;"></div>
+                <div id="salaryBreakdown"></div>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 1rem;">
+                    *此计算结果仅供参考，实际薪资会根据面试表现和公司需求进行调整
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 员工评价轮播 -->
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2>员工真实评价</h2>
+            <div class="reviews-carousel">
+                <div class="review-item active">
+                    <div class="review-avatar">李</div>
+                    <div class="review-text">"在星云科技工作了两年，从应届生成长为技术骨干。公司的导师制度很棒，技术氛围浓厚，同事们都很乐于分享。最重要的是，这里真的能让你快速成长！"</div>
+                    <div class="review-author">李明华 - 前端开发工程师</div>
+                </div>
+                <div class="review-item">
+                    <div class="review-avatar">张</div>
+                    <div class="review-text">"公司的培训体系非常完善，入职第一个月就有系统的新人培训。项目经验丰富，技术栈先进，工作环境也很舒适。福利待遇在行业内算是不错的。"</div>
+                    <div class="review-author">张雨薇 - 后端开发工程师</div>
+                </div>
+                <div class="review-item">
+                    <div class="review-avatar">王</div>
+                    <div class="review-text">"作为算法工程师，在这里能接触到最前沿的AI技术。公司鼓励创新，给了我们很大的发挥空间。团队氛围很好，大家都很有激情！"</div>
+                    <div class="review-author">王志强 - 算法工程师</div>
+                </div>
+                <div class="review-item">
+                    <div class="review-avatar">陈</div>
+                    <div class="review-text">"从实习生到正式员工，公司见证了我的每一步成长。这里不仅有技术上的挑战，还有很多学习和发展的机会。推荐应届生来这里发展！"</div>
+                    <div class="review-author">陈思琪 - 产品经理</div>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active" onclick="showReview(0)"></span>
+                <span class="dot" onclick="showReview(1)"></span>
+                <span class="dot" onclick="showReview(2)"></span>
+                <span class="dot" onclick="showReview(3)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 福利待遇 -->
+    <section id="benefits" class="section benefits">
+        <div class="container">
+            <h2>福利待遇</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">💰</div>
+                    <h3 class="benefit-title">竞争薪酬</h3>
+                    <p class="benefit-desc">应届毕业生年薪12-35万，根据能力定级，每年薪资调整机会</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">📚</div>
+                    <h3 class="benefit-title">培训发展</h3>
+                    <p class="benefit-desc">新员工培训、技术分享、外部培训，年度培训预算3万元/人</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🏥</div>
+                    <h3 class="benefit-title">五险一金</h3>
+                    <p class="benefit-desc">完善的社会保险和公积金，员工商业保险补充</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🏖️</div>
+                    <h3 class="benefit-title">带薪年假</h3>
+                    <p class="benefit-desc">法定假期+带薪年假+生日假+婚假，工作生活平衡</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">股权激励</h3>
+                    <p class="benefit-desc">优秀员工享有股权激励，与公司共同成长分享成果</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🍕</div>
+                    <h3 class="benefit-title">免费三餐</h3>
+                    <p class="benefit-desc">营养丰富的工作餐，下午茶、零食无限供应</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🎮</div>
+                    <h3 class="benefit-title">娱乐设施</h3>
+                    <p class="benefit-desc">游戏室、健身房、图书角，团建活动丰富多彩</p>
+                </div>
+                <div class="benefit-item fade-in">
+                    <div class="benefit-icon">🚀</div>
+                    <h3 class="benefit-title">快速晋升</h3>
+                    <p class="benefit-desc">明确的职业发展路径，优秀者1-2年即可晋升</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 企业文化 -->
+    <section id="culture" class="section">
+        <div class="container">
+            <h2>企业文化</h2>
+            <div class="culture-gallery">
+                <div class="culture-item">
+                    <div class="culture-bg">🏢</div>
+                    <div class="culture-overlay">
+                        <h3>现代化办公环境</h3>
+                        <p>开放式办公空间，舒适的工作环境</p>
+                    </div>
+                </div>
+                <div class="culture-item">
+                    <div class="culture-bg">🤝</div>
+                    <div class="culture-overlay">
+                        <h3>团队协作文化</h3>
+                        <p>扁平化管理，鼓励跨部门合作</p>
+                    </div>
+                </div>
+                <div class="culture-item">
+                    <div class="culture-bg">💡</div>
+                    <div class="culture-overlay">
+                        <h3>创新驱动发展</h3>
+                        <p>鼓励创新思维，支持技术探索</p>
+                    </div>
+                </div>
+                <div class="culture-item">
+                    <div class="culture-bg">🎯</div>
+                    <div class="culture-overlay">
+                        <h3>目标导向管理</h3>
+                        <p>明确的目标设定，结果导向考核</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 申请流程 -->
+    <section id="process" class="section">
+        <div class="container">
+            <h2>申请流程</h2>
+            <div class="process-steps">
+                <div class="step-item fade-in">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">在线申请</h3>
+                    <p class="step-desc">提交个人简历和求职意向</p>
+                </div>
+                <div class="step-item fade-in">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">简历筛选</h3>
+                    <p class="step-desc">HR初步筛选，3个工作日内回复</p>
+                </div>
+                <div class="step-item fade-in">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">在线测试</h3>
+                    <p class="step-desc">技能测试和逻辑能力评估</p>
+                </div>
+                <div class="step-item fade-in">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">技术面试</h3>
+                    <p class="step-desc">技术专家1对1面试，考察专业能力</p>
+                </div>
+                <div class="step-item fade-in">
+                    <div class="step-number">5</div>
+                    <h3 class="step-title">综合面试</h3>
+                    <p class="step-desc">部门负责人面试，评估综合素质</p>
+                </div>
+                <div class="step-item fade-in">
+                    <div class="step-number">6</div>
+                    <h3 class="step-title">发放Offer</h3>
+                    <p class="step-desc">确定录用，发放正式工作邀请</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能测试 -->
+    <section class="skill-test">
+        <div class="test-container">
+            <h2>🧠 快速技能评估</h2>
+            <p>完成这个简短的测试，了解你的技术水平</p>
+            
+            <div class="question-card" id="question1">
+                <div class="question-title">1. 你最熟悉的编程语言是？</div>
+                <div class="question-options">
+                    <div class="option" onclick="selectOption(this, 'javascript')">JavaScript</div>
+                    <div class="option" onclick="selectOption(this, 'python')">Python</div>
+                    <div class="option" onclick="selectOption(this, 'java')">Java</div>
+                    <div class="option" onclick="selectOption(this, 'other')">其他语言</div>
+                </div>
+            </div>
+
+            <div class="question-card" id="question2">
+                <div class="question-title">2. 你的项目经验主要在哪个领域？</div>
+                <div class="question-options">
+                    <div class="option" onclick="selectOption(this, 'frontend')">前端开发</div>
+                    <div class="option" onclick="selectOption(this, 'backend')">后端开发</div>
+                    <div class="option" onclick="selectOption(this, 'fullstack')">全栈开发</div>
+                    <div class="option" onclick="selectOption(this, 'ai')">人工智能</div>
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="submitTest()" style="margin-top: 2rem;">查看测试结果 🎯</button>
+            
+            <div class="salary-result" id="testResult">
+                <h3>🎉 测试完成！</h3>
+                <div id="testScore"></div>
+                <div id="recommendedJobs"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2>联系我们</h2>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3 style="margin-bottom: 2rem;">招聘联系方式</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong>招聘邮箱</strong><br>
+                            hr@nebula-tech.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <strong>招聘热线</strong><br>
+                            400-888-9999
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>公司地址</strong><br>
+                            北京市朝阳区望京SOHO T3 2801室
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <strong>微信群</strong><br>
+                            扫码加入应届生交流群
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div>
+                            <strong>官方网站</strong><br>
+                            www.nebula-tech.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div>
+                            <strong>工作时间</strong><br>
+                            周一至周五 9:00-18:00
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form fade-in" onsubmit="submitApplication(event)">
+                    <h3 style="margin-bottom: 2rem;">🚀 快速申请</h3>
+                    <div class="form-group">
+                        <label for="name">姓名 *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱 *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">手机号 *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="school">毕业院校</label>
+                        <input type="text" id="school" name="school" placeholder="请输入你的毕业院校">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">意向职位 *</label>
+                        <select id="position" name="position" required>
+                            <option value="">请选择职位</option>
+                            <option value="前端开发工程师">前端开发工程师</option>
+                            <option value="后端开发工程师">后端开发工程师</option>
+                            <option value="算法工程师">算法工程师</option>
+                            <option value="产品经理">产品经理</option>
+                            <option value="数据分析师">数据分析师</option>
+                            <option value="UI/UX设计师">UI/UX设计师</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="expectedSalary">期望薪资</label>
+                        <select id="expectedSalary" name="expectedSalary">
+                            <option value="">请选择期望薪资</option>
+                            <option value="10-15万">10-15万</option>
+                            <option value="15-20万">15-20万</option>
+                            <option value="20-25万">20-25万</option>
+                            <option value="25-30万">25-30万</option>
+                            <option value="30万以上">30万以上</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">个人介绍</label>
+                        <textarea id="message" name="message" placeholder="请简单介绍一下自己的专业背景、技能特长、项目经验和求职意向..."></textarea>
+                    </div>
+                    <button type="submit" class="apply-btn">提交申请 🚀</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 星云科技有限公司. 保留所有权利.</p>
+            <p>我们期待与优秀的你相遇！🌟</p>
+            <div style="margin-top: 1rem; font-size: 0.9rem;">
+                <span>关注我们：</span>
+                <span style="margin: 0 0.5rem;">微博 | 微信公众号 | 知乎 | LinkedIn</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 全局变量
+        let currentReview = 0;
+        let testAnswers = {};
+        let applicantCount = 1247;
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeParticles();
+            updateApplicantCount();
+            startReviewCarousel();
+            initScrollAnimations();
+            updateProgressBar();
+            setupNavigation();
+        });
+
+        // 初始化粒子背景
+        function initializeParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (6 + Math.random() * 4) + 's';
+                particles.appendChild(particle);
+            }
+        }
+
+        // 主题切换
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            body.classList.toggle('dark-mode');
+            themeToggle.textContent = body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            
+            // 保存主题设置
+            localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        // 加载保存的主题
+        window.addEventListener('load', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggle').textContent = '☀️';
+            }
+        });
+
+        // 滚动进度条
+        function updateProgressBar() {
+            window.addEventListener('scroll', function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('progressBar').style.width = scrolled + '%';
+
+                // 返回顶部按钮显示/隐藏
+                const backToTop = document.getElementById('backToTop');
+                if (winScroll > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+        }
+
+        // 返回顶部
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 导航栏活动状态
+        function setupNavigation() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            function updateActiveNav() {
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    if (window.pageYOffset >= sectionTop) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveNav);
+
+            // 平滑滚动
+            navLinks.forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 更新申请人数
+        function updateApplicantCount() {
+            setInterval(() => {
+                applicantCount += Math.floor(Math.random() * 3) + 1;
+                document.getElementById('applicantCount').textContent = applicantCount.toLocaleString();
+            }, 30000); // 每30秒更新一次
+        }
+
+        // 滚动动画
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // 数字动画
+                        if (entry.target.querySelector('.stat-number')) {
+                            animateNumbers(entry.target);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // 数字动画
+        function animateNumbers(container) {
+            const statNumbers = container.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                let current = 0;
+                const increment = target / 100;
+                
+                const updateNumber = () => {
+                    if (current < target) {
+                        current += increment;
+                        if (target === 95) {
+                            stat.textContent = Math.ceil(current) + '%';
+                        } else {
+                            stat.textContent = Math.ceil(current) + '+';
+                        }
+                        requestAnimationFrame(updateNumber);
+                    } else {
+                        if (target === 95) {
+                            stat.textContent = target + '%';
+                        } else {
+                            stat.textContent = target + '+';
+                        }
+                    }
+                };
+                updateNumber();
+            });
+        }
+
+        // 职位筛选
+        function filterJobs(category) {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const jobCards = document.querySelectorAll('.job-card');
+
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            jobCards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 搜索职位
+        function searchJobs() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const jobCards = document.querySelectorAll('.job-card');
+
+            jobCards.forEach(card => {
+                const jobTitle = card.querySelector('.job-title').textContent.toLowerCase();
+                const jobDept = card.querySelector('.job-department').textContent.toLowerCase();
+                
+                if (jobTitle.includes(searchTerm) || jobDept.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    card.style.background = searchTerm ? '#fff3cd' : '';
+                } else {
+                    card.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        }
+
+        // 薪资计算器
+        function calculateSalary() {
+            const major = document.getElementById('major').value;
+            const education = document.getElementById('education').value;
+            const skillLevel = document.getElementById('skillLevel').value;
+            const projects = parseInt(document.getElementById('projects').value) || 0;
+
+            let baseSalary = 150000; // 基础薪资15万
+
+            // 专业加分
+            const majorBonus = {
+                'cs': 30000, 'software': 25000, 'ai': 50000, 
+                'data': 20000, 'design': 10000, 'business': 15000, 'other': 5000
+            };
+
+            // 学历加分
+            const educationBonus = {
+                'bachelor': 0, 'master': 30000, 'phd': 60000
+            };
+
+            // 技能加分
+            const skillBonus = {
+                'beginner': 0, 'intermediate': 20000, 'advanced': 40000
+            };
+
+            // 项目经验加分
+            const projectBonus = projects * 5000;
+
+            const totalSalary = baseSalary + majorBonus[major] + educationBonus[education] + skillBonus[skillLevel] + projectBonus;
+            const minSalary = Math.floor(totalSalary * 0.8);
+            const maxSalary = Math.floor(totalSalary * 1.2);
+
+            document.getElementById('salaryRange').textContent = `${minSalary.toLocaleString()} - ${maxSalary.toLocaleString()} 元`;
+            
+            document.getElementById('salaryBreakdown').innerHTML = `
+                <div style="text-align: left; margin-top: 1rem;">
+                    <p>💡 薪资构成分析：</p>
+                    <p>• 基础薪资：${baseSalary.toLocaleString()} 元</p>
+                    <p>• 专业背景：+${majorBonus[major].toLocaleString()} 元</p>
+                    <p>• 学历水平：+${educationBonus[education].toLocaleString()} 元</p>
+                    <p>• 技能等级：+${skillBonus[skillLevel].toLocaleString()} 元</p>
+                    <p>• 项目经验：+${projectBonus.toLocaleString()} 元</p>
+                </div>
+            `;
+
+            document.getElementById('salaryResult').classList.add('show');
+        }
+
+        // 员工评价轮播
+        function startReviewCarousel() {
+            setInterval(() => {
+                currentReview = (currentReview + 1) % 4;
+                showReview(currentReview);
+            }, 5000);
+        }
+
+        function showReview(index) {
+            const reviews = document.querySelectorAll('.review-item');
+            const dots = document.querySelectorAll('.dot');
+
+            reviews.forEach(review => review.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            reviews[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentReview = index;
+        }
+
+        // 技能测试
+        function selectOption(element, value) {
+            const options = element.parentNode.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            element.classList.add('selected');
+
+            const questionId = element.closest('.question-card').id;
+            testAnswers[questionId] = value;
+        }
+
+        function submitTest() {
+            if (Object.keys(testAnswers).length < 2) {
+                alert('请完成所有题目！');
+                return;
+            }
+
+            let score = 0;
+            let recommendations = [];
+
+            // 根据答案计算分数和推荐
+            if (testAnswers.question1 === 'javascript') {
+                score += 30;
+                recommendations.push('前端开发工程师');
+            } else if (testAnswers.question1 === 'python') {
+                score += 35;
+                recommendations.push('后端开发工程师', '算法工程师');
+            } else if (testAnswers.question1 === 'java') {
+                score += 30;
+                recommendations.push('后端开发工程师');
+            }
+
+            if (testAnswers.question2 === 'ai') {
+                score += 40;
+                recommendations.push('算法工程师');
+            } else if (testAnswers.question2 === 'frontend') {
+                score += 30;
+                recommendations.push('前端开发工程师');
+            } else if (testAnswers.question2 === 'fullstack') {
+                score += 35;
+                recommendations.push('全栈开发工程师');
+            }
+
+            document.getElementById('testScore').innerHTML = `
+                <div style="font-size: 2rem; font-weight: bold; color: #4CAF50;">
+                    技术水平评分: ${score}/100
+                </div>
+            `;
+
+            document.getElementById('recommendedJobs').innerHTML = `
+                <div style="margin-top: 1rem;">
+                    <h4>💼 推荐职位：</h4>
+                    <p>${recommendations.join('、')}</p>
+                    <button class="calc-btn" onclick="scrollToJobs()" style="margin-top: 1rem;">
+                        查看推荐职位 🎯
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('testResult').classList.add('show');
+        }
+
+        function scrollToJobs() {
+            document.getElementById('jobs').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // 聊天功能
+        function toggleChat() {
+            const chatBox = document.getElementById('chatBox');
+            chatBox.classList.toggle('open');
+        }
+
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target;
+                const message = input.value.trim();
+                if (message) {
+                    addMessage(message, 'user');
+                    input.value = '';
+                    setTimeout(() => {
+                        respondToMessage(message);
+                    }, 1000);
+                }
+            }
+        }
+
+        function addMessage(text, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.textContent = text;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function respondToMessage(userMessage) {
+            let response = '';
+            const message = userMessage.toLowerCase();
+
+            if (message.includes('薪资') || message.includes('待遇')) {
+                response = '我们的薪资很有竞争力！应届生年薪12-35万，还有股权激励和丰厚福利。您可以使用页面上的薪资计算器获得个性化估算。';
+            } else if (message.includes('职位') || message.includes('工作')) {
+                response = '我们目前招聘前端开发、后端开发、算法工程师、产品经理等多个职位。您可以查看上方的职位列表，找到适合的岗位。';
+            } else if (message.includes('面试') || message.includes('流程')) {
+                response = '我们的招聘流程包括：简历筛选→在线测试→技术面试→综合面试→发放offer。整个流程大约需要1-2周时间。';
+            } else if (message.includes('培训') || message.includes('成长')) {
+                response = '公司有完善的培训体系：新员工培训、导师制度、技术分享会、外部培训等。我们非常重视员工的成长发展！';
+            } else if (message.includes('地址') || message.includes('位置')) {
+                response = '我们位于北京市朝阳区望京SOHO T3 2801室，交通便利，环境优美。';
+            } else {
+                response = '感谢您的咨询！您可以直接填写下方的申请表，或拨打我们的招聘热线400-888-9999。还有其他问题吗？';
+            }
+
+            addMessage(response, 'bot');
+        }
+
+        // 申请职位
+        function applyJob(jobTitle) {
+            // 滚动到联系表单
+            document.getElementById('contact').scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // 自动选择对应职位
+            setTimeout(() => {
+                const positionSelect = document.getElementById('position');
+                positionSelect.value = jobTitle;
+                positionSelect.style.background = '#e3f2fd';
+                setTimeout(() => {
+                    positionSelect.style.background = '';
+                }, 2000);
+            }, 1000);
+
+            // 显示提示消息
+            const notification = document.createElement('div');
+            notification.innerHTML = `✅ 已为您选择职位：${jobTitle}`;
+            notification.style.cssText = `
+                position: fixed; 
+                top: 80px; 
+                right: 20px; 
+                background: #4CAF50; 
+                color: white; 
+                padding: 1rem 2rem; 
+                border-radius: 8px; 
+                z-index: 9999;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            `;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // 提交申请
+        function submitApplication(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // 表单验证
+            if (!data.name || !data.email || !data.phone || !data.position) {
+                alert('❌ 请填写所有必填字段！');
+                return;
+            }
+
+            // 邮箱格式验证
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                alert('❌ 请输入有效的邮箱地址！');
+                return;
+            }
+
+            // 手机号验证
+            const phoneRegex = /^1[3-9]\d{9}$/;
+            if (!phoneRegex.test(data.phone)) {
+                alert('❌ 请输入有效的手机号码！');
+                return;
+            }
+
+            // 模拟提交过程
+            const submitBtn = e.target.querySelector('.apply-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = '🚀 提交中...';
+            submitBtn.disabled = true;
+            
+            // 添加加载动画
+            submitBtn.style.animation = 'pulse 1s infinite';
+            
+            setTimeout(() => {
+                // 生成申请编号
+                const applicationId = 'NB' + Date.now().toString().slice(-6);
+                
+                alert(`🎉 申请提交成功！
+
+👤 申请人：${data.name}
+💼 职位：${data.position}
+📧 邮箱：${data.email}
+📱 手机：${data.phone}
+🏫 院校：${data.school || '未填写'}
+💰 期望薪资：${data.expectedSalary || '面议'}
+🆔 申请编号：${applicationId}
+
+我们已收到您的申请，HR将在3个工作日内与您联系。
+请保存好您的申请编号以便查询进度。
+
+感谢您选择星云科技！🌟`);
+                
+                // 重置表单
+                e.target.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                submitBtn.style.animation = '';
+                
+                // 更新申请人数
+                applicantCount++;
+                document.getElementById('applicantCount').textContent = applicantCount.toLocaleString();
+                
+            }, 2500);
+        }
+
+        // 添加一些趣味交互
+        document.addEventListener('DOMContentLoaded', function() {
+            // 鼠标跟踪效果
+            let mouseX = 0, mouseY = 0;
+            let isMouseMoving = false;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                isMouseMoving = true;
+                
+                setTimeout(() => {
+                    isMouseMoving = false;
+                }, 100);
+                
+                // 3D卡片效果
+                const cards = document.querySelectorAll('.job-card, .benefit-item, .stat-item');
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const rotateX = (y - centerY) / 20;
+                        const rotateY = (centerX - x) / 20;
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    } else {
+                        card.style.transform = '';
+                    }
+                });
+            });
+
+            // Konami代码彩蛋
+            let konamiCode = [];
+            const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
+            
+            document.addEventListener('keydown', (e) => {
+                konamiCode.push(e.keyCode);
+                if (konamiCode.length > konamiSequence.length) {
+                    konamiCode.shift();
+                }
+                
+                if (konamiCode.join(',') === konamiSequence.join(',')) {
+                    showEasterEgg();
+                    konamiCode = [];
+                }
+            });
+        });
+
+        function showEasterEgg() {
+            const easter = document.createElement('div');
+            easter.innerHTML = `
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem;">🎉🎊🚀</div>
+                    <h3>恭喜发现隐藏彩蛋！</h3>
+                    <p>你展现了程序员的好奇心和探索精神！</p>
+                    <p>这正是我们星云科技需要的品质！</p>
+                    <button onclick="this.parentElement.parentElement.remove()" style="
+                        background: white; 
+                        color: #667eea; 
+                        border: none; 
+                        padding: 0.5rem 1rem; 
+                        border-radius: 20px; 
+                        cursor: pointer; 
+                        margin-top: 1rem;
+                    ">太棒了！</button>
+                </div>
+            `;
+            easter.style.cssText = `
+                position: fixed; 
+                top: 50%; 
+                left: 50%; 
+                transform: translate(-50%, -50%); 
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                color: white; 
+                padding: 3rem; 
+                border-radius: 20px; 
+                z-index: 10000;
+                font-size: 1.1rem;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                animation: slideInUp 0.5s ease-out;
+                max-width: 400px;
+            `;
+            
+            document.body.appendChild(easter);
+        }
+
+        // 添加浮动效果
+        setInterval(() => {
+            const floatingElements = document.querySelectorAll('.benefit-icon, .step-number, .company-logo');
+            floatingElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.transition = 'transform 1s ease-in-out';
+                    el.style.transform = 'translateY(-8px)';
+                    setTimeout(() => {
+                        el.style.transform = 'translateY(0)';
+                    }, 1000);
+                }, index * 200);
+            });
+        }, 5000);
+
+        // 性能监控和优化
+        if ('requestIdleCallback' in window) {
+            requestIdleCallback(() => {
+                console.log('🚀 星云科技招聘网站加载完成！');
+                console.log('💡 提示：试试输入 Konami 代码 ↑↑↓↓←→←→BA');
+            });
+        }
+    </script>
+</body>
+</html>
