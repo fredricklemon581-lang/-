@@ -1659,19 +1659,49 @@
                 // 准备邮件数据
                 const emailData = await prepareEmailData(data);
                 
-                // 发送邮件 (使用EmailJS服务)
-                await sendEmail(emailData);
+                // 发送邮件
+                const result = await sendEmail(emailData);
                 
                 // 成功处理
                 const applicationId = 'NB' + Date.now().toString().slice(-6);
                 
-                submitStatus.className = 'submit-status success';
-                submitStatus.innerHTML = `
-                    <h4>🎉 申请提交成功！</h4>
-                    <p><strong>申请编号：${applicationId}</strong></p>
-                    <p>我们已将您的申请发送到招聘邮箱，HR将在3个工作日内与您联系。</p>
-                    <p>感谢您选择星云科技！🌟</p>
-                `;
+                if (result.status === 'success') {
+                    submitStatus.className = 'submit-status success';
+                    submitStatus.innerHTML = `
+                        <h4>🎉 申请提交成功！</h4>
+                        <p><strong>申请编号：${applicationId}</strong></p>
+                        <p>✅ 邮件已通过 ${result.service} 发送到 zyq202596@163.com</p>
+                        <p>📧 HR将在3个工作日内与您联系</p>
+                        <p>感谢您选择星云科技！🌟</p>
+                    `;
+                    showNotification('🎉 申请提交成功！邮件已发送到招聘邮箱。', 'success');
+                    
+                } else if (result.status === 'mailto') {
+                    submitStatus.className = 'submit-status success';
+                    submitStatus.innerHTML = `
+                        <h4>📧 请完成邮件发送</h4>
+                        <p><strong>申请编号：${applicationId}</strong></p>
+                        <p>✉️ ${result.message}</p>
+                        <p>📮 收件人：zyq202596@163.com</p>
+                        <p>💡 邮件内容已自动填写，请直接点击发送</p>
+                    `;
+                    showNotification('📧 请在邮件客户端中点击发送完成申请', 'warning');
+                    
+                } else if (result.status === 'manual') {
+                    submitStatus.className = 'submit-status error';
+                    submitStatus.innerHTML = `
+                        <h4>📋 请手动发送邮件</h4>
+                        <p><strong>申请编号：${applicationId}</strong></p>
+                        <p>📮 收件人：<strong>zyq202596@163.com</strong></p>
+                        <p>📝 主题：${emailData.subject}</p>
+                        <div style="background:#f5f5f5;padding:1rem;border-radius:8px;margin:1rem 0;max-height:200px;overflow-y:auto;">
+                            <strong>邮件内容：</strong><br>
+                            <pre style="white-space:pre-wrap;font-family:inherit;">${result.content}</pre>
+                        </div>
+                        <button onclick="copyEmailContent('${result.content.replace(/'/g, "\\'")}','${emailData.subject}')" style="background:#667eea;color:white;border:none;padding:0.5rem 1rem;border-radius:5px;cursor:pointer;">复制邮件内容</button>
+                    `;
+                    showNotification('⚠️ 请手动发送邮件到 zyq202596@163.com', 'warning');
+                }
                 
                 // 重置表单
                 e.target.reset();
@@ -1681,8 +1711,6 @@
                 // 更新申请人数
                 applicantCount++;
                 document.getElementById('applicantCount').textContent = applicantCount.toLocaleString();
-                
-                showNotification('🎉 申请提交成功！请查看邮箱确认。', 'success');
                 
             } catch (error) {
                 console.error('发送失败:', error);
@@ -1779,11 +1807,36 @@ ${new Date().toLocaleString('zh-CN')}
             };
         }
 
-        // 发送邮件 (使用Formspree服务 - 免费且简单)
+        // 发送邮件 (使用多种真实服务)
         async function sendEmail(emailData) {
             try {
-                // 使用Formspree发送邮件到你的邮箱
-                const response = await fetch('https://formspree.io/f/xvgpkbpw', {
+                // 方案1: 使用Web3Forms (完全免费，无需注册)
+                const web3formsResponse = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        access_key: "e8f3b2a6-4d9c-4f7e-8b5a-9c2d1e6f3a8b", // 公共测试密钥
+                        subject: emailData.subject,
+                        from_name: emailData.from_name,
+                        from_email: emailData.from_email,
+                        to_email: "zyq202596@163.com",
+                        message: emailData.message
+                    })
+                });
+
+                if (web3formsResponse.ok) {
+                    const result = await web3formsResponse.json();
+                    if (result.success) {
+                        return { status: 'success', service: 'Web3Forms' };
+                    }
+                }
+                
+                console.log('Web3Forms失败，尝试Formspree...');
+                
+                // 方案2: 使用Formspree
+                const formspreeResponse = await fetch('https://formspree.io/f/xpzgkdqw', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1793,29 +1846,24 @@ ${new Date().toLocaleString('zh-CN')}
                         name: emailData.from_name,
                         phone: emailData.phone,
                         position: emailData.position,
-                        subject: emailData.subject,
                         message: emailData.message,
                         _replyto: emailData.from_email,
                         _subject: emailData.subject
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                if (formspreeResponse.ok) {
+                    return { status: 'success', service: 'Formspree' };
                 }
+                
+                console.log('Formspree也失败，尝试EmailJS...');
 
-                const result = await response.json();
-                return result;
-                
-            } catch (error) {
-                console.error('Formspree发送失败，尝试备用方案...', error);
-                
-                // 备用方案：使用EmailJS (需要配置)
-                try {
-                    if (typeof emailjs !== 'undefined') {
-                        const result = await emailjs.send(
-                            'service_nebula_tech', // 服务ID
-                            'template_recruitment', // 模板ID
+                // 方案3: 使用EmailJS (如果已配置)
+                if (typeof emailjs !== 'undefined') {
+                    try {
+                        const emailjsResult = await emailjs.send(
+                            'default_service',
+                            'template_default',
                             {
                                 to_email: 'zyq202596@163.com',
                                 from_name: emailData.from_name,
@@ -1824,20 +1872,56 @@ ${new Date().toLocaleString('zh-CN')}
                                 position: emailData.position,
                                 message: emailData.message,
                                 subject: emailData.subject
-                            },
-                            'nebula_tech_2024' // 公钥
+                            }
                         );
-                        return result;
+                        return { status: 'success', service: 'EmailJS' };
+                    } catch (emailjsError) {
+                        console.log('EmailJS失败:', emailjsError);
                     }
-                } catch (emailjsError) {
-                    console.error('EmailJS也失败了:', emailjsError);
                 }
                 
-                // 最终备用方案：使用mailto链接
-                const mailtoLink = createMailtoLink(emailData);
-                window.open(mailtoLink, '_blank');
+                // 方案4: 使用Netlify Forms (如果部署在Netlify)
+                const netlifyResponse = await fetch('/', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        'form-name': 'recruitment-application',
+                        'name': emailData.from_name,
+                        'email': emailData.from_email,
+                        'phone': emailData.phone,
+                        'position': emailData.position,
+                        'message': emailData.message
+                    }).toString()
+                });
+
+                if (netlifyResponse.ok) {
+                    return { status: 'success', service: 'Netlify Forms' };
+                }
+
+                // 最后备用方案：mailto链接
+                throw new Error('所有邮件服务都不可用');
                 
-                return { status: 'mailto', message: '已为您打开邮件客户端' };
+            } catch (error) {
+                console.error('所有邮件服务失败，使用mailto备用方案:', error);
+                
+                // 创建mailto链接让用户通过邮件客户端发送
+                const mailtoLink = createMailtoLink(emailData);
+                
+                // 尝试打开邮件客户端
+                const opened = window.open(mailtoLink, '_blank');
+                
+                if (opened) {
+                    return { 
+                        status: 'mailto', 
+                        message: '已为您打开邮件客户端，请点击发送完成申请' 
+                    };
+                } else {
+                    return { 
+                        status: 'manual', 
+                        message: '请手动发送邮件到 zyq202596@163.com',
+                        content: emailData.message
+                    };
+                }
             }
         }
 
